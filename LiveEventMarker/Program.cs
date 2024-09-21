@@ -17,6 +17,7 @@ namespace LiveEventMarker
         static Dictionary<DateTime, List<LiveSegment>> lives = new Dictionary<DateTime, List<LiveSegment>>();
         static DateTime CurrentLive = DateTime.MinValue;
         static LiveSegment CurrentSegment;
+        static List<long> oprIdL = new List<long>();
 
         static void Main(string[] args)
         {
@@ -91,6 +92,12 @@ namespace LiveEventMarker
                                 Console.WriteLine(sb.ToString());
                                 Console.WriteLine("----------------------------------------");
                                 Console.WriteLine("提交评论...");
+                                if (oprIdL.Contains(dyn.vinfo.av))
+                                {
+                                    Console.WriteLine("重复操作！！！！！检查代码逻辑！！！！");
+                                    continue;
+                                }
+                                oprIdL.Add(dyn.vinfo.av);
                                 // 发射！
                                 var result = bsession.sendComment(dyn.vinfo.av, sb.ToString());
                                 Console.WriteLine(result.Substring(128));
