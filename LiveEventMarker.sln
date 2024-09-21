@@ -5,16 +5,42 @@ VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveEventMarker", "LiveEventMarker\LiveEventMarker.csproj", "{525EB293-7F4B-456F-85A1-AD0EB7801DB7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliApi", "BiliApi.Net\BiliApi.csproj", "{6B3E23C8-D855-4744-89E2-B6ADE880584B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliveDanmakuAgent", "BiliveDanmakuAgent\BiliveDanmakuAgent.csproj", "{12062E18-05B4-4CCE-8643-3B91627A28FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Debug|x64.Build.0 = Debug|Any CPU
 		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Release|x64.ActiveCfg = Release|Any CPU
+		{525EB293-7F4B-456F-85A1-AD0EB7801DB7}.Release|x64.Build.0 = Release|Any CPU
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Debug|x64.ActiveCfg = Debug|x64
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Debug|x64.Build.0 = Debug|x64
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Release|x64.ActiveCfg = Release|x64
+		{6B3E23C8-D855-4744-89E2-B6ADE880584B}.Release|x64.Build.0 = Release|x64
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Debug|x64.Build.0 = Debug|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Release|x64.ActiveCfg = Release|Any CPU
+		{12062E18-05B4-4CCE-8643-3B91627A28FA}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
