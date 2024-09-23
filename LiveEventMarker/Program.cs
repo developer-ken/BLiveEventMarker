@@ -12,7 +12,7 @@ namespace LiveEventMarker
     {
         static string cookies = "";
         static BiliSession bsession;
-        static int LiveroomId = 299;   //直播间
+        static int LiveroomId = 35298;   //直播间
         static long UserId = 89380160; //牙刷搬运工
         static Dictionary<DateTime, List<LiveSegment>> lives = new Dictionary<DateTime, List<LiveSegment>>();
         static DateTime CurrentLive = DateTime.MinValue;
@@ -38,6 +38,18 @@ namespace LiveEventMarker
             {
                 try
                 {
+                    if(lives.Count == 0)
+                    {
+                        //Console.WriteLine($"Short Ended: no data");
+                        Thread.Sleep(30 * 1000);            //每半分钟抓取一次新动态
+                        continue;
+                    }
+                    if (lives.First().Value.Last().DataPending)
+                    {
+                        //Console.WriteLine($"Short Ended: data pending");
+                        Thread.Sleep(30 * 1000);            //每半分钟抓取一次新动态
+                        continue;
+                    }
                     Console.WriteLine($"{DateTime.Now.ToString("yyyyMMdd-HH:mm:ss")} 抓取当前动态...");
                     var latestDyn = biliDyn.getLatest();
                     foreach (var dyn in latestDyn)
