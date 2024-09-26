@@ -16,7 +16,7 @@ namespace LiveEventMarker
         static long UserId = 89380160; //牙刷搬运工
         static Dictionary<DateTime, List<LiveSegment>> lives = new Dictionary<DateTime, List<LiveSegment>>();
         static DateTime CurrentLive = DateTime.MinValue;
-        static LiveSegment CurrentSegment;
+        static LiveSegment CurrentSegment = null;
         static List<long> oprIdL = new List<long>();
 
         static void Main(string[] args)
@@ -38,7 +38,7 @@ namespace LiveEventMarker
             {
                 try
                 {
-                    if(lives.Count == 0)
+                    if (lives.Count == 0)
                     {
                         //Console.WriteLine($"Short Ended: no data");
                         Thread.Sleep(30 * 1000);            //每半分钟抓取一次新动态
@@ -79,14 +79,14 @@ namespace LiveEventMarker
                             {
                                 // 就是你了，发评论！
                                 StringBuilder sb = new StringBuilder();
-                                sb.AppendLine("<萌刷高光时刻>");
+                                sb.AppendLine("<萌刷高光投喂>");
                                 sb.AppendLine("[SC]");
                                 foreach (var seg in liv.Value)
                                 {
                                     foreach (var sc in seg.Superchat)
                                     {
                                         var dur = sc.Time - seg.startTime;
-                                        string durstr = dur.TotalHours >= 1 ? ($"{dur.Hours}:{dur.Minutes}:{dur.Seconds}") : ($"{dur.Minutes}:{dur.Seconds}");
+                                        string durstr = dur.TotalHours >= 1 ? ($"{dur.Hours.ToString("00")}:{dur.Minutes.ToString("00")}:{dur.Seconds.ToString("00")}") : ($"{dur.Minutes.ToString("00")}:{dur.Seconds.ToString("00")}");
                                         sb.AppendLine($"{durstr} {sc.Name}");
                                     }
                                 }
@@ -96,11 +96,11 @@ namespace LiveEventMarker
                                     foreach (var gb in seg.Guardbuy)
                                     {
                                         var dur = gb.Time - seg.startTime;
-                                        string durstr = dur.TotalHours >= 1 ? ($"{dur.Hours}:{dur.Minutes}:{dur.Seconds}") : ($"{dur.Minutes}:{dur.Seconds}");
+                                        string durstr = dur.TotalHours >= 1 ? ($"{dur.Hours.ToString("00")}:{dur.Minutes.ToString("00")}:{dur.Seconds.ToString("00")}") : ($"{dur.Minutes.ToString("00")}:{dur.Seconds.ToString("00")}");
                                         sb.AppendLine($"{durstr} {gb.Name}");
                                     }
                                 }
-                                sb.AppendLine("\n上述信息自动生成 by @亿只鸡蛋_Egg");
+                                sb.AppendLine("\n直播事件标记bot by 蛋");
                                 Console.WriteLine(sb.ToString());
                                 Console.WriteLine("----------------------------------------");
                                 Console.WriteLine("提交评论...");
@@ -112,7 +112,7 @@ namespace LiveEventMarker
                                 oprIdL.Add(dyn.vinfo.av);
                                 // 发射！
                                 var result = bsession.sendComment(dyn.vinfo.av, sb.ToString());
-                                Console.WriteLine(result.Substring(128));
+                                Console.WriteLine(result.Substring(0, 128));
                             }
                             delList.Add(liv.Key);
                         }
@@ -130,7 +130,7 @@ namespace LiveEventMarker
                     Console.WriteLine($"Error: {e.Message}");
                     Console.WriteLine($"Stack: {e.StackTrace}");
                 }
-                Thread.Sleep(30 * 1000);            //每半分钟抓取一次新动态
+                Thread.Sleep(60 * 1000);            //每一分钟抓取一次新动态
             }
         }
 
@@ -139,6 +139,7 @@ namespace LiveEventMarker
             CurrentSegment.DataPending = false;
             Console.WriteLine($"- 直播{CurrentLive.ToString("yyyy-MM-dd-HH:mm:ss")}结束");
             CurrentLive = DateTime.MinValue;
+            CurrentSegment = null;
         }
 
         private static void Dc_LiveStartEvent(object sender, BiliveDanmakuAgent.Model.RoomEventArgs e)
@@ -177,6 +178,7 @@ namespace LiveEventMarker
 
         private static void Dc_GuardBuy(object sender, BiliveDanmakuAgent.Model.DanmakuReceivedEventArgs e)
         {
+            if (CurrentSegment is null) return;
             Console.WriteLine($"  + 新舰队 {e.Danmaku.UserName}#{e.Danmaku.UserID}");
             CurrentSegment.Guardbuy.Add(
                 new Event
@@ -189,6 +191,7 @@ namespace LiveEventMarker
 
         private static void Dc_Superchat(object sender, BiliveDanmakuAgent.Model.DanmakuReceivedEventArgs e)
         {
+            if (CurrentSegment is null) return;
             Console.WriteLine($"  + 新SC {e.Danmaku.UserName}#{e.Danmaku.UserID}");
             CurrentSegment.Superchat.Add(
                 new Event
